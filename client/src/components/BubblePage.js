@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {axiosWithAuth} from '../utils/axiosWithAuth.js';
 
 import Bubbles from "./Bubbles";
@@ -17,7 +16,7 @@ const BubblePage = () => {
       console.log('Protected page', res)
       setColorList(res.data)
     })
-    .catch(err => console.log(err.response));
+    .catch(err => console.log(err.response))
   },[])
 
   return (
