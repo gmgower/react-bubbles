@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
@@ -7,7 +6,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, props }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -34,12 +33,24 @@ const ColorList = ({ colors, updateColors }) => {
         }
       })
       updateColors(updateEditColors)
-      .catch(err => console.log(err.response))
+      props.history.push('/Bubblepage')
+      setEditing(false)
+
     })
+    .catch(err => console.log(err.response))
   };
 
-  const deleteColor = color => {
+  const deleteColor = colorDelete => {
     // make a delete request to delete this color
+    axiosWithAuth()
+    .delete(`http://localhost:5000/api/colors/${colorDelete.id}`, colorDelete.id)
+    .then(res => {
+      const deleteToColor = colors.filter(color => colorDelete.id !== color.id)
+      updateColors(deleteToColor)
+      props.history.push('/Bubblepage')
+      setEditing(false)
+    })
+    .catch(err => console.log(err.response))
   };
 
   return (
