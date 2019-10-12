@@ -33,9 +33,8 @@ const ColorList = ({ colors, updateColors, props }) => {
         }
       })
       updateColors(updateEditColors)
-      props.history.push('/Bubblepage')
+      props.history.push('/bubble-page')
       setEditing(false)
-
     })
     .catch(err => console.log(err.response))
   };
@@ -47,7 +46,7 @@ const ColorList = ({ colors, updateColors, props }) => {
     .then(res => {
       const deleteToColor = colors.filter(color => colorDelete.id !== color.id)
       updateColors(deleteToColor)
-      props.history.push('/Bubblepage')
+      props.history.push('/bubble-page')
       setEditing(false)
     })
     .catch(err => console.log(err.response))
